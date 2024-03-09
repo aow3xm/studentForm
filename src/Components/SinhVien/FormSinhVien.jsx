@@ -116,8 +116,14 @@ class FormSinhVien extends Component {
               />
             </div>
           </div>
+          <div>
           <button type="submit" className="btn btn-success">Thêm Sinh Viên</button>
-          <button type="button" className="btn btn-success mx-3" onClick={this.handleUpdateStudent}>Cập nhật sinh viên</button>
+          <button type="button" className="btn btn-success mx-3" onClick={this.handleUpdateStudent}>Cập nhật sinh viên
+          </button>
+
+          </div>
+          
+          
         </form>
         <TableSinhVien/>
       </div>
@@ -126,7 +132,6 @@ class FormSinhVien extends Component {
   }
 }
 
-// liên kết với state của redux
 const mapStateToProps = (state) => {
     return {
         students: state.students,

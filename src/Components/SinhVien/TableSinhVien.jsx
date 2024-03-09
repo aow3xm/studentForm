@@ -10,9 +10,35 @@ import { connect } from 'react-redux';
         document.getElementById('sdtSV').value = student.sdtSV;
         document.getElementById('emailSV').value = student.emailSV;
     }
+
+    
+    handleSearchChange = (event) => {
+        this.setState({ searchValue: event.target.value });
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchValue: '',
+            students: props.students,
+        };
+    }
+    
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.students !== this.props.students) {
+            this.setState({ students: this.props.students });
+        }
+        if (prevState.searchValue !== this.state.searchValue) {
+            let filteredStudents = this.props.students.filter(student =>
+                student.tenSV.toLowerCase().includes(this.state.searchValue.toLowerCase())
+            );
+            this.setState({ students: filteredStudents }); 
+        }
+    }
   render() {
     return (
       <div className='m-3'>
+       <input type="text" className="form-control mb-3 findStudent" placeholder="Tìm sinh viên" onInput={this.handleSearchChange} />
         <table className='table table-dark'>
             <thead>
                 <tr>
@@ -24,7 +50,7 @@ import { connect } from 'react-redux';
                 </tr>
             </thead>
             <tbody>
-                {this.props.students.map((student, index) => {
+            {this.state.students.map((student, index)=>{
                     return (
                         <tr key={index}>
                             <td>{student.maSV}</td>
